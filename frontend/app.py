@@ -47,6 +47,12 @@ def index():
 def land():
     return render_template('landing.html')
 
+
+@app.route('/vote', methods=['GET'])
+def voting():
+    return render_template('voting.html')
+
+
 @app.route('/test', methods=['GET'])
 def testpage():
     return render_template('testpage.html')
