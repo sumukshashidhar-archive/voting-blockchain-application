@@ -47,6 +47,11 @@ def index():
 def land():
     return render_template('landing.html')
 
+@app.route('/test', methods=['GET'])
+def testpage():
+    return render_template('testpage.html')
+
+
 
 @app.route('/error', methods=['GET'])
 def index3():
