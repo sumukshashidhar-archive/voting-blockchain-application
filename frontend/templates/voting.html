@@ -1,4 +1,4 @@
-
+{% block content %}
 <!DOCTYPE html>
 <head>
   <link rel="stylesheet" href="../static/styles/style.css">
@@ -11,7 +11,7 @@
       <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-10 h-10 text-white p-2 bg-indigo-500 rounded-full" viewBox="0 0 24 24">
         <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
       </svg>
-      <span class="ml-3 text-xl">QuickHQ</span>
+      <span class="ml-3 text-xl">VoteBlock</span>
     </a>
     <nav class="md:ml-auto flex flex-wrap items-center text-base justify-center">
       <a class="mr-5 hover:text-gray-900" href="https://github.com/sumukshashidhar/quick">GitHub</a>
@@ -51,7 +51,7 @@
                 </div>
   
                 <div class="col-span-6 sm:col-span-3">
-                  <label for="last_name" class="block text-sm font-medium text-gray-700">Last name</label>
+                  <label for="last_name" class="block text-sm font-medium text-gray-700">Last Name</label>
                   <input type="text" name="last_name" id="last_name" autocomplete="family-name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
                 </div>
   
@@ -91,3 +91,5 @@
     </div>
   </div>
   </div>
+
+  {% endblock %}
