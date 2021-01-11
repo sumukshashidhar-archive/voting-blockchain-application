@@ -32,15 +32,18 @@ def fetch_posts():
         posts = sorted(content, key=lambda k: k['timestamp'],
                        reverse=True)
 
-
 @app.route('/', methods=['GET'])
-def index():
-    fetch_posts()
-    return render_template('index.html',
-                           title='Voter Dashboard',
-                           votes=[],
-                           node_address=CONNECTED_NODE_ADDRESS,
-                           readable_time=timestamp_to_string)
+def lander():
+    return render_template('landing.html')
+
+# @app.route('/', methods=['GET'])
+# def index():
+#     fetch_posts()
+#     return render_template('index.html',
+#                            title='Voter Dashboard',
+#                            votes=[],
+#                            node_address=CONNECTED_NODE_ADDRESS,
+#                            readable_time=timestamp_to_string)
 
 
 @app.route('/land', methods=['GET'])
@@ -50,13 +53,8 @@ def land():
 
 @app.route('/vote', methods=['GET'])
 def voting():
-    return render_template('voting.html')
-
-
-@app.route('/test', methods=['GET'])
-def testpage():
-    return render_template('testpage.html')
-
+    global CONNECTED_NODE_ADDRESS
+    return render_template('voting.html', node_address=CONNECTED_NODE_ADDRESS)
 
 
 @app.route('/error', methods=['GET'])
@@ -69,11 +67,11 @@ def index3():
 
 
 @app.route('/votes', methods=['GET'])
-def index2():
+def adminweb():
     global posts
     print(posts)
     fetch_posts()
-    return render_template('index2.html',
+    return render_template('adminweb.html',
                            title='Blockchain Votes',
                            votes=posts,
                            node_address=CONNECTED_NODE_ADDRESS,
@@ -82,6 +80,7 @@ def index2():
 
 @app.route('/changeNode', methods=['GET'])
 def changeNode():
+    global CONNECTED_NODE_ADDRESS
     CONNECTED_NODE_ADDRESS = "http://127.0.0.1:9000"
     return f'changed node to pper node {CONNECTED_NODE_ADDRESS}'
 
@@ -91,24 +90,22 @@ def submit_textarea():
     """
     Endpoint to create a new transaction via our application.
     """
-    post_content = request.form["content"]
-    author = request.form["author"]
-    password = request.form["password"]
-    dob = request.form["dob"]
-    print("Got: ", post_content, author, password, dob)
+    global CONNECTED_NODE_ADDRESS
+    ### need to send this data off to a validator, then check it out later
+
+    # validation(request.form.first_name, request.form.last_name, request.form.voterid, request.form.password)
 
     if True:
         post_object = {
-            'author': author,
-            'content': sha256(post_content.encode()).hexdigest(),
+            'candidate': request.form.candidate
         }
 
-        # Submit a transaction
         new_tx_address = "{}/new_transaction".format(CONNECTED_NODE_ADDRESS)
 
         requests.post(new_tx_address, json=post_object, headers={'Content-type': 'application/json'})
 
-        return redirect('/')   
+        return redirect('/success')
+
     else:
         return redirect('/error')
 
