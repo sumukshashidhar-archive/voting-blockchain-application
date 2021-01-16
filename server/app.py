@@ -5,6 +5,7 @@ from flask import Flask, request
 import time
 import json
 import requests
+
 # initializing flask
 
 app = Flask(__name__)
@@ -22,7 +23,7 @@ peers = set()
 @app.route('/new_transaction', methods=['POST'])
 def new_transaction():
     transaction_data = request.get_json()
-    required_fields = ["author", "content"]
+    required_fields = ["candidate", "voterhash"]
 
     for field in required_fields:
         if not transaction_data.get(field):
