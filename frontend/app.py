@@ -94,7 +94,7 @@ def submit_textarea():
     ### need to send this data off to a validator, then check it out later
 
     # validation(request.form.first_name, request.form.last_name, request.form.voterid, request.form.password)
-
+    print(request.form)
     if True:
         post_object = {
             'candidate': request.form.candidate
