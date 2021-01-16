@@ -94,10 +94,12 @@ def submit_textarea():
     ### need to send this data off to a validator, then check it out later
 
     # validation(request.form.first_name, request.form.last_name, request.form.voterid, request.form.password)
-    print(request.form)
+
+    ## we only want to store the candidate data, we assume that the verification is done
+    ## truly anonymous 
     if True:
         post_object = {
-            'candidate': request.form.candidate
+            'candidate': request.form['candidate']
         }
 
         new_tx_address = "{}/new_transaction".format(CONNECTED_NODE_ADDRESS)
