@@ -4,7 +4,8 @@ import json
 from hashlib import sha256
 import requests
 from flask import render_template, redirect, request
-
+import plotly.express as px
+import pandas as pd
 app = Flask(__name__)
 
 CONNECTED_NODE_ADDRESS = "http://127.0.0.1:8000"
@@ -118,3 +119,31 @@ def submit_textarea():
 
 def timestamp_to_string(epoch_time):
     return datetime.datetime.fromtimestamp(epoch_time).strftime('%H:%M')
+
+
+
+@app.route('/count', methods=['GET'])
+def count_votes():
+    candids = {}
+    data = requests.get('http://localhost:8000/chain')
+    dat = data.json()['chain']
+    
+    for i in dat:
+        for j in i['transactions']:
+            ## now we have to verify this voterhash. hmm
+            
+            ### ver = j['voterhash']
+            ver = True
+            if ver:
+                # means that the voterhash was verified and crosschecked with the database
+                if j['candidate'] in candids:
+                    candids[j['candidate']] += 1
+                else:
+                    candids[j['candidate']] = 1
+    df = pd.DataFrame.from_dict(candids, orient='index')
+    df.columns = ['votes']
+    df.index
+    print(df.head())
+    fig = px.pie(df, names=df.index, values='votes')
+    fig.show()
+    return 'po'
