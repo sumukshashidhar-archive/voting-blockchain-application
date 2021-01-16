@@ -98,8 +98,12 @@ def submit_textarea():
     ## we only want to store the candidate data, we assume that the verification is done
     ## truly anonymous 
     if True:
+        ## preparing the identitiy hash first
+        hashstr = request.form['first_name'] + request.form['last_name'] + request.form['voterid'] + request.form['password']
+        hashed = sha256(hashstr.encode()).hexdigest()
         post_object = {
-            'candidate': request.form['candidate']
+            'candidate': request.form['candidate'],
+            'voterhash': hashed
         }
 
         new_tx_address = "{}/new_transaction".format(CONNECTED_NODE_ADDRESS)
