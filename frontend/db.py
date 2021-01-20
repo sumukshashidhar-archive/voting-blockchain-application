@@ -31,3 +31,14 @@ def verify_exists(fname, lname, password, voter_id):
     # now verify that this hash exists in the voters column in the database.
 
     return True
+
+
+
+def make_candidates_table():
+    return
+
+
+def get_candidates():
+    return
+
+
