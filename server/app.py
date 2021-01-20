@@ -161,7 +161,7 @@ def get_pending_tx():
 
 def consensus():
     """
-    The Nakamoto Consensus Algorithm
+    The Nakamoto Consensus Algorithm with longest chain
     """
     global blockchain
 
