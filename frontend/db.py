@@ -1,6 +1,14 @@
 # this is a simple terminal app to add data to our database for the user hashes
 from hashlib import sha256
 import random
+
+def make_user_table():
+    """
+    Makes the voters / users table
+    """
+    return
+
+
 def add_user(fname, lname, password):
     """
     Function adds a user to our database.
@@ -35,16 +43,28 @@ def verify_exists(fname, lname, password, voter_id):
 
 
 def make_candidates_table():
+    """
+    Creates a Candidate Table. Which stores the name of the candidate and a short description of the candidate
+    """
     return
 
 
 def get_candidates():
+    """
+    Returns the entire table and the descriptions
+    """
     return
 
 
 def add_candidate():
+    """
+    Adds a candidate to the candidate table
+    """
     return
 
 
 def remove_candidate():
+    """
+    Removes a candidate from the candidate table
+    """
     return
