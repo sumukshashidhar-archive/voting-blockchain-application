@@ -6,6 +6,9 @@ import requests
 from flask import render_template, redirect, request
 import plotly.express as px
 import pandas as pd
+
+from db import verify_exists
+
 app = Flask(__name__)
 
 CONNECTED_NODE_ADDRESS = "http://127.0.0.1:8000"
@@ -42,6 +45,15 @@ def lander():
 def land():
     return render_template('landing.html')
 
+@app.route('/success', methods=['GET'])
+def success():
+    return render_template('success.html')
+
+@app.route('/mine', methods=['GET'])
+def mine():
+    global CONNECTED_NODE_ADDRESS
+    requests.get(f"{CONNECTED_NODE_ADDRESS}/mine")
+    return redirect('/')
 
 @app.route('/vote', methods=['GET'])
 def voting():
@@ -84,14 +96,14 @@ def submit_textarea():
     """
     global CONNECTED_NODE_ADDRESS
     ### need to send this data off to a validator, then check it out later
-
-    # validation(request.form.first_name, request.form.last_name, request.form.voterid, request.form.password)
+    print(request.form)
+    bools = verify_exists(request.form['first_name'], request.form['last_name'], request.form['password'], request.form['voterid'])
 
     ## we only want to store the candidate data, we assume that the verification is done
     ## truly anonymous 
-    if True:
+    if bools:
         ## preparing the identitiy hash first
-        hashstr = request.form['first_name'] + request.form['last_name'] + request.form['voterid'] + request.form['password']
+        hashstr = request.form['first_name'] + request.form['last_name'] + request.form['password'] + request.form['voterid']
         hashed = sha256(hashstr.encode()).hexdigest()
         post_object = {
             'candidate': request.form['candidate'],
@@ -105,7 +117,7 @@ def submit_textarea():
         return redirect('/success')
 
     else:
-        return redirect('/error')
+        return render_template('error.html', message="MYSQL ERROR")
 
 
 def timestamp_to_string(epoch_time):
