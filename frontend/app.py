@@ -148,6 +148,6 @@ def count_votes():
     df.columns = ['votes']
     df.index
     print(df.head())
-    fig = px.pie(df, names=df.index, values='votes')
+    fig = px.pie(df, names=df.index, values='votes', title='Voting Distribution for Candidates')
     fig.write_html('./templates/count.html')
     return render_template('count.html')
