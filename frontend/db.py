@@ -44,3 +44,7 @@ def get_candidates():
 
 def add_candidate():
     return
+
+
+def remove_candidate():
+    return
