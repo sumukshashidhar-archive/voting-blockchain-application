@@ -145,5 +145,5 @@ def count_votes():
     df.index
     print(df.head())
     fig = px.pie(df, names=df.index, values='votes')
-    fig.show()
-    return 'po'
+    fig.write_html('./templates/count.html')
+    return render_template('count.html')
