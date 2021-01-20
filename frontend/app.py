@@ -10,14 +10,15 @@ app = Flask(__name__)
 
 CONNECTED_NODE_ADDRESS = "http://127.0.0.1:8000"
 
-posts = []
+votes = []
 
 
-def fetch_posts():
+def fetch_votes():
     """
     Function to fetch the chain from a blockchain node, parse the
     data and store it locally.
     """
+    global CONNECTED_NODE_ADDRESS
     get_chain_address = "{}/chain".format(CONNECTED_NODE_ADDRESS)
     response = requests.get(get_chain_address)
     if response.status_code == 200:
@@ -29,8 +30,8 @@ def fetch_posts():
                 tx["hash"] = block["previous_hash"]
                 content.append(tx)
 
-        global posts
-        posts = sorted(content, key=lambda k: k['timestamp'],
+        global votes
+        votes = sorted(content, key=lambda k: k['timestamp'],
                        reverse=True)
 
 @app.route('/', methods=['GET'])
@@ -39,7 +40,7 @@ def lander():
 
 # @app.route('/', methods=['GET'])
 # def index():
-#     fetch_posts()
+#     fetch_votes()
 #     return render_template('index.html',
 #                            title='Voter Dashboard',
 #                            votes=[],
@@ -69,12 +70,12 @@ def index3():
 
 @app.route('/votes', methods=['GET'])
 def adminweb():
-    global posts
-    print(posts)
-    fetch_posts()
+    global votes
+    print(votes)
+    fetch_votes()
     return render_template('adminweb.html',
                            title='Blockchain Votes',
-                           votes=posts,
+                           votes=votes,
                            node_address=CONNECTED_NODE_ADDRESS,
                            readable_time=timestamp_to_string)
 
