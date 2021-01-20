@@ -38,16 +38,6 @@ def fetch_votes():
 def lander():
     return render_template('landing.html')
 
-# @app.route('/', methods=['GET'])
-# def index():
-#     fetch_votes()
-#     return render_template('index.html',
-#                            title='Voter Dashboard',
-#                            votes=[],
-#                            node_address=CONNECTED_NODE_ADDRESS,
-#                            readable_time=timestamp_to_string)
-
-
 @app.route('/land', methods=['GET'])
 def land():
     return render_template('landing.html')
@@ -125,8 +115,9 @@ def timestamp_to_string(epoch_time):
 
 @app.route('/count', methods=['GET'])
 def count_votes():
+    global CONNECTED_NODE_ADDRESS
     candids = {}
-    data = requests.get('http://localhost:8000/chain')
+    data = requests.get(f'{CONNECTED_NODE_ADDRESS}/chain')
     dat = data.json()['chain']
     
     for i in dat:
