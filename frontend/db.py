@@ -3,16 +3,34 @@ from hashlib import sha256
 import random
 import mysql.connector
 
-dbx = mysql.connector.connect(
-    host="localhost",
-    user="root",
-    passwd="root"
-)
+
+try:
+
+    dbx = mysql.connector.connect(
+        host="localhost",
+        user="root",
+        passwd="root"
+    )
+    
+    cursor = dbx.cursor()
+
+except:
+
+    print("MYSQL DB Connection Error")
 
 def make_user_table():
     """
     Makes the voters / users table
     """
+    make_voter_table = '''
+    CREATE TABLE voters (
+        voterhash VARCHAR(255) PRIMARY KEY
+    )
+    '''
+    try:
+        cursor.execute(make_voter_table)
+    except:
+        return False
     return
 
 
@@ -25,6 +43,9 @@ def add_user(fname, lname, password):
 
     This returns the voterid for the person. We will be generating a voterid here, only ONCE.
     """
+    sql = '''
+    ∂
+    '''
     voter_id = random.randint(10000000, 999999999)
     details_string = fname + lname + password + voter_id
     hashed = sha256(details_string.encode()).hexdigest()
