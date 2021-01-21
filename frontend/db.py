@@ -45,12 +45,20 @@ def add_user(fname, lname, password):
 
     This returns the voterid for the person. We will be generating a voterid here, only ONCE.
     """
-    sql = '''
-    ∂
+    insert_voter = '''
+    INSERT INTO voter VALUES (
+        %s
+    )
     '''
     voter_id = random.randint(10000000, 999999999)
     details_string = fname + lname + password + voter_id
     hashed = sha256(details_string.encode()).hexdigest()
+    vals = (hashed)
+    try:
+        cursor.execute(insert_voter, vals)
+        dbx.commit()
+    except:
+        return False
 
     ## now add this to the mysql database. Just make one column called voters, and store this hash.
 
