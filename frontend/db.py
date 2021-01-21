@@ -116,6 +116,8 @@ def get_candidates():
     '''
     try:
         cursor.execute(get_candidate_statement)
+        result = cursor.fetchall()
+        return result
     except:
         return False
     return
