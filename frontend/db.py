@@ -111,6 +111,13 @@ def get_candidates():
     """
     Returns the entire table and the descriptions
     """
+    get_candidate_statement = '''
+    SELECT * FROM candidates
+    '''
+    try:
+        cursor.execute(get_candidate_statement)
+    except:
+        return False
     return
 
 
