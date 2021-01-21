@@ -74,6 +74,17 @@ def make_candidates_table():
     """
     Creates a Candidate Table. Which stores the name of the candidate and a short description of the candidate
     """
+    make_candidates_table = '''
+    CREATE TABLE voters (
+        candidate_name VARCHAR(255) PRIMARY KEY,
+        description VARCHAR(255)
+    )
+    '''
+    try:
+        cursor.execute(make_candidates_table)
+    except:
+        return False
+    return
     return
 
 
@@ -88,6 +99,7 @@ def add_candidate():
     """
     Adds a candidate to the candidate table
     """
+    insert
     return
 
 
