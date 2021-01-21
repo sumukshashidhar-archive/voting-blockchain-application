@@ -74,9 +74,18 @@ def verify_exists(fname, lname, password, voter_id):
     details_string = fname + lname + password + voter_id
     hashed = sha256(details_string.encode()).hexdigest()
 
-    # now verify that this hash exists in the voters column in the database.
-
-    return True
+    verify_voter = '''
+    SELECT * FROM voters
+    WHERE voterhash='%s'
+    '''
+    vals = (hashed)
+    try:
+        cursor.execute(verify_voter, vals)
+        result = cursor.fetchone()
+        if len(result) != 0:
+            return True
+    except:
+        return False
 
 
 
