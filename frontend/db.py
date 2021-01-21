@@ -75,7 +75,7 @@ def make_candidates_table():
     Creates a Candidate Table. Which stores the name of the candidate and a short description of the candidate
     """
     make_candidates_table = '''
-    CREATE TABLE voters (
+    CREATE TABLE candidates (
         candidate_name VARCHAR(255) PRIMARY KEY,
         description VARCHAR(255)
     )
@@ -95,11 +95,23 @@ def get_candidates():
     return
 
 
-def add_candidate():
+def add_candidate(name, description):
     """
     Adds a candidate to the candidate table
     """
-    insert
+    insert_candidate = '''
+    INSERT INTO candidates VALUES (
+        %s,
+        %s
+    )
+    '''
+    vals = (name, description)
+    try:
+        cursor.execute(insert_candidate, vals)
+    except:
+        return False
+    return
+    '''
     return
 
 
