@@ -20,6 +20,7 @@ except:
 
 def make_voter_table():
     global dbx
+    global cursor
     """
     Makes the voters / users table
     """
