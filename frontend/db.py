@@ -68,6 +68,28 @@ def make_candidates_table():
 ADDITION FUNCTIONS
 """
 
+
+
+def add_candidate(name, description):
+    """
+    Adds a candidate to the candidate table
+    """
+    insert_candidate = '''
+    INSERT INTO candidates VALUES (
+        %s,
+        %s
+    )
+    '''
+    vals = (name, description)
+    try:
+        cursor.execute(insert_candidate, vals)
+        dbx.commit()
+    except:
+        return False
+    return
+
+
+
 def add_voter(fname, lname, password):
     """
     Function adds a user to our database.
@@ -135,25 +157,6 @@ def get_candidates():
         cursor.execute(get_candidate_statement)
         result = cursor.fetchall()
         return result
-    except:
-        return False
-    return
-
-
-def add_candidate(name, description):
-    """
-    Adds a candidate to the candidate table
-    """
-    insert_candidate = '''
-    INSERT INTO candidates VALUES (
-        %s,
-        %s
-    )
-    '''
-    vals = (name, description)
-    try:
-        cursor.execute(insert_candidate, vals)
-        dbx.commit()
     except:
         return False
     return
