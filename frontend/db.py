@@ -19,6 +19,7 @@ except:
     print("MYSQL DB Connection Error")
 
 def make_user_table():
+    global dbx
     """
     Makes the voters / users table
     """
@@ -29,6 +30,7 @@ def make_user_table():
     '''
     try:
         cursor.execute(make_voter_table)
+        dbx.commit()
     except:
         return False
     return
@@ -82,9 +84,9 @@ def make_candidates_table():
     '''
     try:
         cursor.execute(make_candidates_table)
+        dbx.commit()
     except:
         return False
-    return
     return
 
 
@@ -108,10 +110,9 @@ def add_candidate(name, description):
     vals = (name, description)
     try:
         cursor.execute(insert_candidate, vals)
+        dbx.commit()
     except:
         return False
-    return
-    '''
     return
 
 
