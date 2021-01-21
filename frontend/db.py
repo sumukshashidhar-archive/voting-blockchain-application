@@ -1,6 +1,13 @@
 # this is a simple terminal app to add data to our database for the user hashes
 from hashlib import sha256
 import random
+import mysql.connector
+
+dbx = mysql.connector.connect(
+    host="localhost",
+    user="root",
+    passwd="root"
+)
 
 def make_user_table():
     """
