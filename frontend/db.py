@@ -21,7 +21,7 @@ except:
 
 
 """
-CREATION STATEMENTS
+CREATION FUNCTIONS
 """
 
 def make_voter_table():
@@ -42,6 +42,31 @@ def make_voter_table():
         return False
     return
 
+
+
+def make_candidates_table():
+    """
+    Creates a Candidate Table. Which stores the name of the candidate and a short description of the candidate
+    """
+    make_candidates_table = '''
+    CREATE TABLE candidates (
+        candidate_name VARCHAR(255) PRIMARY KEY,
+        description VARCHAR(255)
+    )
+    '''
+    try:
+        cursor.execute(make_candidates_table)
+        dbx.commit()
+    except:
+        return False
+    return
+
+
+
+
+"""
+ADDITION FUNCTIONS
+"""
 
 def add_voter(fname, lname, password):
     """
@@ -72,6 +97,10 @@ def add_voter(fname, lname, password):
     return voter_id
 
 
+"""
+READ FUNCTIONS
+"""
+
 def verify_exists(fname, lname, password, voter_id):
     """
     This function is to ensure that a certain voter exists.
@@ -93,25 +122,6 @@ def verify_exists(fname, lname, password, voter_id):
             return True
     except:
         return False
-
-
-
-def make_candidates_table():
-    """
-    Creates a Candidate Table. Which stores the name of the candidate and a short description of the candidate
-    """
-    make_candidates_table = '''
-    CREATE TABLE candidates (
-        candidate_name VARCHAR(255) PRIMARY KEY,
-        description VARCHAR(255)
-    )
-    '''
-    try:
-        cursor.execute(make_candidates_table)
-        dbx.commit()
-    except:
-        return False
-    return
 
 
 def get_candidates():
