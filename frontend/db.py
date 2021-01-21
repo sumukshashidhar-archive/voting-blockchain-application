@@ -18,7 +18,7 @@ except:
 
     print("MYSQL DB Connection Error")
 
-def make_user_table():
+def make_voter_table():
     global dbx
     """
     Makes the voters / users table
