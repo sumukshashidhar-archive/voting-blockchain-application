@@ -18,6 +18,12 @@ except:
 
     print("MYSQL DB Connection Error")
 
+
+
+"""
+CREATION STATEMENTS
+"""
+
 def make_voter_table():
     global dbx
     global cursor
@@ -37,7 +43,7 @@ def make_voter_table():
     return
 
 
-def add_user(fname, lname, password):
+def add_voter(fname, lname, password):
     """
     Function adds a user to our database.
 
