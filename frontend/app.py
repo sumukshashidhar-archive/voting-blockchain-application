@@ -97,8 +97,8 @@ def register_node():
     data = '{'+f'"node_address": "{CONNECTED_NODE_ADDRESS}"'+'}'
 
     response = requests.post(f'{node_addr}/register_with', headers=headers, data=data)
-    print(response)
-    return render_template('success.html')
+    print(response.text)
+    return render_template('success.html', registered_node=node_addr)
 
 
 @app.route('/change_node', methods=['POST'])
