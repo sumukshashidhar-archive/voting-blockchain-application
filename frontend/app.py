@@ -95,9 +95,7 @@ def adminweb():
 
 @app.route('/changeNode', methods=['GET'])
 def changeNode():
-    global CONNECTED_NODE_ADDRESS
-    CONNECTED_NODE_ADDRESS = "http://127.0.0.1:9000"
-    return f'changed node to peer node {CONNECTED_NODE_ADDRESS}'
+    return render_template('change_node.html')
 
 
 @app.route('/submit', methods=['POST'])
