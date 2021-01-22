@@ -73,7 +73,7 @@ def mine():
     """
     global CONNECTED_NODE_ADDRESS
     requests.get(f"{CONNECTED_NODE_ADDRESS}/mine")
-    return redirect('/')
+    return redirect('/mine_sucess')
 
 @app.route('/vote', methods=['GET'])
 def voting():
