@@ -56,8 +56,8 @@ def success():
     return render_template('success.html')
 
 @app.route('/mine_success', methods=['GET'])
-def success():
-    """The success page displayed after voting
+def minesuccess():
+    """The success page displayed after mining
 
     Returns:
         HTML Page: The success page html
