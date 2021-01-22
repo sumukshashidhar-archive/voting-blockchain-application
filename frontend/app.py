@@ -48,6 +48,11 @@ def lander():
 
 @app.route('/success', methods=['GET'])
 def success():
+    """The success page displayed after voting
+
+    Returns:
+        HTML Page: The success page html
+    """
     return render_template('success.html')
 
 @app.route('/mine', methods=['GET'])
@@ -98,7 +103,7 @@ def submit_textarea():
     global CONNECTED_NODE_ADDRESS
     ### need to send this data off to a validator, then check it out later
     print(request.form)
-    bools = verify_exists(request.form['first_name'], request.form['last_name'], request.form['password'], request.form['voterid'])
+    bools = dbapi.verify_exists(request.form['first_name'], request.form['last_name'], request.form['password'], request.form['voterid'])
 
     ## we only want to store the candidate data, we assume that the verification is done
     ## truly anonymous 
