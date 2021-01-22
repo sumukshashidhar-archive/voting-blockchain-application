@@ -15,27 +15,10 @@ CONNECTED_NODE_ADDRESS = "http://127.0.0.1:8000"
 
 votes = []
 
+"""
+Views
+"""
 
-def fetch_votes():
-    """
-    Function to fetch the chain from a blockchain node, parse the
-    data and store it locally.
-    """
-    global CONNECTED_NODE_ADDRESS
-    get_chain_address = "{}/chain".format(CONNECTED_NODE_ADDRESS)
-    response = requests.get(get_chain_address)
-    if response.status_code == 200:
-        content = []
-        chain = json.loads(response.content)
-        for block in chain["chain"]:
-            for tx in block["transactions"]:
-                tx["index"] = block["index"]
-                tx["hash"] = block["previous_hash"]
-                content.append(tx)
-
-        global votes
-        votes = sorted(content, key=lambda k: k['timestamp'],
-                       reverse=True)
 
 @app.route('/', methods=['GET'])
 def lander():
@@ -81,6 +64,7 @@ def voting():
     return render_template('voting.html', node_address=CONNECTED_NODE_ADDRESS)
 
 
+
 @app.route('/votes', methods=['GET'])
 def adminweb():
     global votes
@@ -101,6 +85,30 @@ def changeNode():
 @app.route('/registerNode', methods=['GET'])
 def registerNode():
     return render_template('register_node.html')
+
+
+
+def fetch_votes():
+    """
+    Function to fetch the chain from a blockchain node, parse the
+    data and store it locally.
+    """
+    global CONNECTED_NODE_ADDRESS
+    get_chain_address = "{}/chain".format(CONNECTED_NODE_ADDRESS)
+    response = requests.get(get_chain_address)
+    if response.status_code == 200:
+        content = []
+        chain = json.loads(response.content)
+        for block in chain["chain"]:
+            for tx in block["transactions"]:
+                tx["index"] = block["index"]
+                tx["hash"] = block["previous_hash"]
+                content.append(tx)
+
+        global votes
+        votes = sorted(content, key=lambda k: k['timestamp'],
+                       reverse=True)
+
 
 
 
