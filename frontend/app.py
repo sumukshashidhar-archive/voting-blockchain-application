@@ -57,6 +57,11 @@ def success():
 
 @app.route('/mine', methods=['GET'])
 def mine():
+    """The Final Success Page to mine the block for the connected note
+
+    Returns:
+        Redirection: Redirects to an additional success page
+    """
     global CONNECTED_NODE_ADDRESS
     requests.get(f"{CONNECTED_NODE_ADDRESS}/mine")
     return redirect('/')
