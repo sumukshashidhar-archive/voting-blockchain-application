@@ -99,6 +99,13 @@ def register_node():
     response = requests.post(f'{node_addr}/register_with', headers=headers, data=data)
     print(response)
     return render_template('success.html')
+
+
+@app.route('/change_node', methods=['POST'])
+def change_node():
+    global CONNECTED_NODE_ADDRESS
+    node_addr = request.form['nodeaddr']
+    CONNECTED_NODE_ADDRESS = node_addr
     
 
 
