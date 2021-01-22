@@ -55,6 +55,15 @@ def success():
     """
     return render_template('success.html')
 
+@app.route('/mine_success', methods=['GET'])
+def success():
+    """The success page displayed after voting
+
+    Returns:
+        HTML Page: The success page html
+    """
+    return render_template('mining_success.html')
+
 @app.route('/mine', methods=['GET'])
 def mine():
     """The Final Success Page to mine the block for the connected note
@@ -70,15 +79,6 @@ def mine():
 def voting():
     global CONNECTED_NODE_ADDRESS
     return render_template('voting.html', node_address=CONNECTED_NODE_ADDRESS)
-
-
-@app.route('/error', methods=['GET'])
-def index3():
-    return render_template('error.html',
-                           title='Voter Dashboard',
-                           votes=[],
-                           node_address=CONNECTED_NODE_ADDRESS,
-                           readable_time=timestamp_to_string)
 
 
 @app.route('/votes', methods=['GET'])
