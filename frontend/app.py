@@ -80,6 +80,10 @@ def adminweb():
 def changeNode():
     return render_template('change_node.html')
 
+@app.route('/connected', methods=['GET'])
+def connectedNode():
+    return render_template('connected_node.html', registered_node=CONNECTED_NODE_ADDRESS)
+
 
 @app.route('/registerNode', methods=['GET'])
 def registerNode():
