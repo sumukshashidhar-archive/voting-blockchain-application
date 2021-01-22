@@ -29,13 +29,15 @@
         <h1 class="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900">Server Down? Fret Not! Just Change your Node!</h1>
         <p class="lg:w-2/3 mx-auto leading-relaxed text-base">Enter the address of another node to change to!</p>
       </div>
-      <div class="flex lg:w-2/3 w-full sm:flex-row flex-col mx-auto px-8 sm:space-x-4 sm:space-y-0 space-y-4 sm:px-0 items-end">
-        <div class="relative flex-grow w-full">
-          <label for="nodeaddr" class="leading-7 text-sm text-gray-600">Alternative Node Address</label>
-          <input type="text" id="nodeaddr" name="nodeaddr" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-transparent focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+      <form action="/submit" method="POST">
+        <div class="flex lg:w-2/3 w-full sm:flex-row flex-col mx-auto px-8 sm:space-x-4 sm:space-y-0 space-y-4 sm:px-0 items-end">
+          <div class="relative flex-grow w-full">
+            <label for="nodeaddr" class="leading-7 text-sm text-gray-600">Alternative Node Address</label>
+            <input type="text" id="nodeaddr" name="nodeaddr" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-transparent focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+          </div>
+          <button class="text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg" type="submit">Register!</button>
         </div>
-        <button class="text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">Switch!</button>
-      </div>
+      </form>
     </div>
   </section>
   {% endblock %}
