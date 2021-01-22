@@ -7,7 +7,7 @@ from flask import render_template, redirect, request
 import plotly.express as px
 import pandas as pd
 
-from db import verify_exists
+import db as dbapi
 
 app = Flask(__name__)
 
@@ -39,6 +39,11 @@ def fetch_votes():
 
 @app.route('/', methods=['GET'])
 def lander():
+    """Displays the Landing page for the application
+
+    Returns:
+        HTML Page: The html landing page for the application
+    """
     return render_template('landing.html')
 
 @app.route('/land', methods=['GET'])
