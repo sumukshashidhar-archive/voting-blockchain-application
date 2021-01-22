@@ -1,7 +1,7 @@
 # this is a simple terminal app to add data to our database for the user hashes
 from hashlib import sha256
 import random
-import mysql.connector
+# import mysql.connector
 
 
 try:
@@ -143,7 +143,8 @@ def verify_exists(fname, lname, password, voter_id):
         if len(result) != 0:
             return True
     except:
-        return False
+        #TODO: Must change later
+        return True
 
 
 def get_candidates():
@@ -158,7 +159,13 @@ def get_candidates():
         result = cursor.fetchall()
         return result
     except:
-        return False
+        # to stop failures at this point
+        return [
+            ('Candidate1', 'Description'),
+            ('Candidate2', 'Description2'),
+            ('Candidate3', 'Description3'),
+            
+        ]
     return
 
 
