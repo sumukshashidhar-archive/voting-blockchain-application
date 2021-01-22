@@ -98,6 +98,12 @@ def changeNode():
     return render_template('change_node.html')
 
 
+@app.route('/registerNode', methods=['GET'])
+def registerNode():
+    return render_template('register_node.html')
+
+
+
 @app.route('/submit', methods=['POST'])
 def submit_textarea():
     """
