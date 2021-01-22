@@ -106,6 +106,7 @@ def change_node():
     global CONNECTED_NODE_ADDRESS
     node_addr = request.form['nodeaddr']
     CONNECTED_NODE_ADDRESS = node_addr
+    return render_template('success_change_node.html')
     
 
 
