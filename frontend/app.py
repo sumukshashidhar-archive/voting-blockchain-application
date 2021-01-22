@@ -46,10 +46,6 @@ def lander():
     """
     return render_template('landing.html')
 
-@app.route('/land', methods=['GET'])
-def land():
-    return render_template('landing.html')
-
 @app.route('/success', methods=['GET'])
 def success():
     return render_template('success.html')
