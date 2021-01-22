@@ -6,7 +6,6 @@ import requests
 from flask import render_template, redirect, request
 import plotly.express as px
 import pandas as pd
-
 import db as dbapi
 
 app = Flask(__name__)
@@ -86,6 +85,19 @@ def changeNode():
 def registerNode():
     return render_template('register_node.html')
 
+
+@app.route('/register_node', methods=['POST'])
+def register_node():
+    global CONNECTED_NODE_ADDRESS
+    node_addr = request.form['nodeaddr']
+    headers = {
+    'Content-Type': 'application/json',
+    }
+
+    data = '{'+f'"node_address": "{CONNECTED_NODE_ADDRESS}"'+'}'
+
+    response = requests.post(f'{node_addr}/register_with', headers=headers, data=data)
+    
 
 
 def fetch_votes():
