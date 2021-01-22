@@ -112,7 +112,7 @@ def add_voter(fname, lname, password):
         cursor.execute(insert_voter, vals)
         dbx.commit()
     except:
-        return False
+        return voter_id
 
     ## now add this to the mysql database. Just make one column called voters, and store this hash.
 
