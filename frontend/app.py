@@ -145,7 +145,7 @@ def submit_textarea():
     """
     global CONNECTED_NODE_ADDRESS
     ### need to send this data off to a validator, then check it out later
-    print(request.form)
+    datax = request.form
     bools = dbapi.verify_exists(request.form['first_name'], request.form['last_name'], request.form['password'], request.form['voterid'])
 
     ## we only want to store the candidate data, we assume that the verification is done
@@ -163,7 +163,8 @@ def submit_textarea():
 
         requests.post(new_tx_address, json=post_object, headers={'Content-type': 'application/json'})
 
-        return redirect('/success')
+        return render_template('success.html', datax=datax)
+        # return redirect('/success')
 
     else:
         return render_template('error.html', message="MYSQL ERROR")
