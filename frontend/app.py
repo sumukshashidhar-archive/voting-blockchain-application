@@ -60,7 +60,7 @@ def mine():
 @app.route('/vote', methods=['GET'])
 def voting():
     global CONNECTED_NODE_ADDRESS
-    return render_template('voting.html', node_address=CONNECTED_NODE_ADDRESS)
+    return render_template('voting.html', node_address=CONNECTED_NODE_ADDRESS, candidates=dbapi.get_candidates())
 
 
 
