@@ -1,3 +1,5 @@
 \contentsline {section}{\numberline {1}Introduction}{3}%
 \contentsline {section}{\numberline {2}Structure of A Block}{3}%
-\contentsline {subsection}{\numberline {2.1}Code Used}{3}%
+\contentsline {subsection}{\numberline {2.1}Components}{3}%
+\contentsline {subsection}{\numberline {2.2}Hashing}{3}%
+\contentsline {subsection}{\numberline {2.3}Code Used}{3}%
