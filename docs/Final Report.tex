@@ -1,6 +1,8 @@
 \documentclass{article}
 \usepackage{a4}
 \usepackage{listings}
+\usepackage{authblk}
+
 \lstset{
 	columns=fullflexible,
 	frame=single,
@@ -8,17 +10,46 @@
 }
 \title{Protecting democracy with a trustless blockchain based decentralised election system}
 \author{Sumuk Shashidhar}
+\affil{\small sumuks2@illinois.edu}
 \date{\today}
+
+\makeatletter
+\def\@maketitle{%
+	\newpage
+	\null
+	\vskip 2em%
+	\begin{center}%
+		\let \footnote \thanks
+		{\LARGE \@title \par}%
+		\vskip 1em%
+		{\Large VoteBlocks white paper\par}%
+		\vskip 1.5em%
+		{\large
+			\lineskip .5em%
+			\begin{tabular}[t]{c}%
+				\@author
+			\end{tabular}\par}%
+		\vskip 1em%
+		{\large \@date}%
+	\end{center}%
+	\par
+	\vskip 1.5em}
+\makeatother
 
 \begin{document}
 	\maketitle
 	\begin{abstract}
-		Democracy fades as sophisticated attempts of voterfraud are detected, with some even succeeding. VoteBlock attempts to protect democracy by decentralising the election process to ensure the lack of a single point of failure or control, with the help of a blockchain. It must be understood that while VoteBlock secures the election process, it does not secure the voter registration process essential for authorizing each voter. 
+		Democracy fades as sophisticated attempts of voterfraud are detected, with some even succeeding. VoteBlock attempts to protect democracy by decentralising the election process to ensure the lack of a single point of failure or control, with the help of a mininmal blockchain built from scratch and custom made for elections. It must be understood that while VoteBlock secures the election, it does not secure the voter registration process essential for authorizing each voter, and does not attempt to either. It is an application of the blockchain process in the real world, and distributes trust among multiple entities to ensure fair and free elections. The public participating in said elections must be vigilant in protecting the peripheral technology required to ensure the smooth functioning of VoteBlocks.
 	\end{abstract}
 	\pagebreak
 	\tableofcontents
 	\pagebreak
 	\section{Introduction}
+	The system is broken down into two major components. The block, and the chain. Each chain is made up a number of blocks, all interlinked with each other. Each block is populated with the transactions, i.e votes in our model.
+	
+	When votes are cast, they are added to a list of unconfirmed transactions. When the block is to be mined, it will be put through a SHA-256 function multiple times in order to match a certain hash pattern. Once the right hash is formed using the nonce, it is added to the block. 
+	
+	When combined, these entities form blockchains, which are hosted and co-ordinated by a number of Python Flask servers, to ensure redundancy. This ensures that the election process can continue with the support of a simple plug-and-play system, where nodes and servers can be swapped out while in operation to fix issues or improve performance. This is revolutionary as it provides maximum redundancy while allowing industry-standard operational performance. 
 	\section{Structure of A Block}
 	\subsection{Components}
 	Each block consists of the following elements essential to recording votes and identifying induviduality of each voter.
@@ -49,7 +80,7 @@ class Block:
 		block_string = json.dumps(self.__dict__, sort_keys=True)
 		return sha256(block_string.encode()).hexdigest()
 	\end{lstlisting}
-
+\pagebreak
 \section{The Blockchain}
 \subsection{Components}
 \subsubsection{Basic Structuring}
@@ -75,7 +106,16 @@ includes:
 	\item Checking if the proof is valid.
 	\item The previous hash referred in the block and the hash of latest block in the chain match.
 \end{itemize}
-
+\subsubsection{Proof of Work}
+A simple function that tries different nonce values to satisfy the hash pattern requirements set by our difficulty criteria.
+\subsubsection{Add New Transaction}
+Appends a transaction to the unconfirmed transaction chain
+\subsubsection{Proof Verification}
+The proof is verified by using the hash supplied and the sha-256 hash computed on the spot.
+\subsubsection{Chain Validity Check}
+We basically use the valid proof check on each and every block in the chain to check if the block as a whole is valid. It is this process that gives the strength to the blockchain, because it is relatively easy to verify the validity of the chain, compared to creating a fake valid chain from scratch. 
+\subsubsection{Mining}
+A new block is creating with the given unconfirmed transactions and the proof of work is computed. The add block method is then used to add the new block to the blockchain, and the unconfirmed transactions / votes are removed
 \subsection{Code Used}
 \begin{lstlisting}[language=Python]
 from block import Block
@@ -112,72 +152,58 @@ class Blockchain:
 	
 	@staticmethod
 	def proof_of_work(block):
-	"""
-	Function that tries different values of nonce to get a hash
-	that satisfies our difficulty criteria.
-	"""
-	block.nonce = 0
-	
-	computed_hash = block.compute_hash()
-	while not computed_hash.startswith('0' * Blockchain.difficulty):
-	block.nonce += 1
-	computed_hash = block.compute_hash()
-	
-	return computed_hash
+		block.nonce = 0
+		computed_hash = block.compute_hash()
+		while not computed_hash.startswith('0' * Blockchain.difficulty):
+			block.nonce += 1
+			computed_hash = block.compute_hash()
+		
+		return computed_hash
 	
 	def add_new_transaction(self, transaction):
-	self.unconfirmed_transactions.append(transaction)
+		self.unconfirmed_transactions.append(transaction)
 	
 	@classmethod
 	def is_valid_proof(cls, block, block_hash):
-	"""
-	Check if block_hash is valid hash of block and satisfies
-	the difficulty criteria.
-	"""
-	return (block_hash.startswith('0' * Blockchain.difficulty) and
-	block_hash == block.compute_hash())
+		return (block_hash.startswith('0' * Blockchain.difficulty) and
+		block_hash == block.compute_hash())
 	
 	@classmethod
 	def check_chain_validity(cls, chain):
-	result = True
-	previous_hash = "0"
+		result = True
+		previous_hash = "0"
 	
-	for block in chain:
-	block_hash = block.hash
-	# remove the hash field to recompute the hash again
-	# using `compute_hash` method.
-	delattr(block, "hash")
-	
-	if not cls.is_valid_proof(block, block_hash) or \
-	previous_hash != block.previous_hash:
-	result = False
-	break
-	
-	block.hash, previous_hash = block_hash, block_hash
-	
-	return result
+		for block in chain:
+			block_hash = block.hash
+			# remove the hash field to recompute the hash again
+			# using `compute_hash` method.
+			delattr(block, "hash")
+		
+		if not cls.is_valid_proof(block, block_hash) or 
+				previous_hash != block.previous_hash:	
+			result = False
+			break
+		
+			block.hash, previous_hash = block_hash, block_hash
+		
+		return result
 	
 	def mine(self):
-	"""
-	This function serves as an interface to add the pending
-	transactions to the blockchain by adding them to the block
-	and figuring out Proof Of Work.
-	"""
-	if not self.unconfirmed_transactions:
-	return False
-	
-	last_block = self.last_block
-	
-	new_block = Block(index=last_block.index + 1,
-	transactions=self.unconfirmed_transactions,
-	timestamp=time.time(),
-	previous_hash=last_block.hash)
-	
-	proof = self.proof_of_work(new_block)
-	self.add_block(new_block, proof)
-	
-	self.unconfirmed_transactions = []
-	return True
+		if not self.unconfirmed_transactions:
+			return False
+		
+		last_block = self.last_block
+		
+		new_block = Block(index=last_block.index + 1,
+			transactions=self.unconfirmed_transactions,
+			timestamp=time.time(),
+			previous_hash=last_block.hash)
+		
+		proof = self.proof_of_work(new_block)
+		self.add_block(new_block, proof)
+		
+		self.unconfirmed_transactions = []
+		return True
 \end{lstlisting}
 	
 \end{document}
