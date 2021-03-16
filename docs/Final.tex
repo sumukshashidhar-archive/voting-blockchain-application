@@ -4,6 +4,7 @@
 \usepackage{pdfpages}
 \usepackage{appendix}
 \usepackage{graphicx}
+\usepackage{listings}
 \graphicspath{ {./images/} }
 \title{Decentralisation of polling processes in developing nations: VoteBlocks Project Report}
 \author{Sumuk Shashidhar - 12A \\ Adithya Mahesh -12A}
@@ -67,7 +68,8 @@
 
     When votes are cast, they are added to a list of unconfirmed transactions. When the block is to be mined, it will be put through a SHA-256 function numerous times in order to match a certain hash pattern. Once the right hash is formed using the nonce, it is added to the block.
 
-    When combined, these entities form blockchains, which are hosted and co-ordinated by a number of Python Flask servers, to ensure redundancy. This ensures that the election process can continue with the support of a simple plug-and-play system, where nodes and servers can be swapped out while in operation to fix issues or improve performance. This is beneficial as it provides maximum redundancy while allowing industry-standard operational performance.
+    When combined, these entities form blockchains, which are hosted and co-ordinated by a number of Python Flask servers, to ensure redundancy. This ensures that the election process can continue with the support of a simple plug-and-play system, where nodes and servers can be swapped out while in operation to fix issues or improve performance. This is beneficial as it provides maximum redundancy while allowing industry-standard operational performance. [5]
+
     \subsection{Structure of a block}
     Each block consists of the following elements essential to recording votes and identifying individuality of each voter. SHA- 256 hashing is used, where the data of the block is first input into a string, and then computed after being Unicode encoded.
     \begin{itemize}
@@ -126,11 +128,18 @@
         Hoepman, Jaap-Henk. "Distributed double spending prevention." International Workshop on Security Protocols. Springer, Berlin, Heidelberg, 2007.
         \bibitem{3b1bvideo}
         3Blue1Brown. “But How Does Bitcoin Actually Work?” YouTube, 7 July 2017, www.youtube.com/watch?v=bBC-nXj3Ng4.
+
+        \bibitem{myvideo}
+        Sumuk Shashidhar. “Secure Voting with a Blockchain.” YouTube, 23 Jan. 2021, www.youtube.com/watch?v=aq4heYGlK6w.
     \end{thebibliography}
     \appendix
     \appendixpage
     \addappheadtotoc
     \section*{Appendix 1 - Code written}
+    \begin{lstlisting}[language=Python]
+    \end{lstlisting}
+
+    
     \section*{Appendix 2 - Screenshots}
 
     \begin{figure}[h]
