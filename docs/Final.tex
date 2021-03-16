@@ -58,10 +58,30 @@
     A simple function to add a block to the blockchain which requires only the block object and the proof of work. The block is verified by checking the proof of work to ensure its validity, and ensuring that the previous block hash of the blockchain, and the previous hash property of the submitted block match.
     \subsubsection{Proof of work function}
     A simple function that tries different nonce values to satisfy the hash pattern requirements set by our difficulty criteria.
-    \subsubsection{Proof of work function}
-    A simple function that tries different nonce values to satisfy the hash pattern requirements set by our difficulty criteria.
-    \subsubsection{Proof of work function}
-    A simple function that tries different nonce values to satisfy the hash pattern requirements set by our difficulty criteria.
-    \subsubsection{Proof of work function}
-    A simple function that tries different nonce values to satisfy the hash pattern requirements set by our difficulty criteria.
+    \subsubsection{Add new transaction function}
+    Appends a transaction to the unconfirmed transaction chain.
+    \subsubsection{Proof verification function}
+    The proof is verified by using the hash supplied and the SHA-256 hash computed on the spot.
+    \subsubsection{Chain validity check function}
+    We use the valid proof check on each and every block in the chain to check if the chain as a whole is valid. It is this process that gives the strength to the blockchain, because it is relatively easy to verify the validity of the chain, compared to creating a fake valid chain from scratch.
+    \subsubsection{Mining function}
+    A new block is created with the given unconfirmed transactions and the proof of work is computed. The add block method is then used to add the new block to the blockchain, and the unconfirmed transactions / votes are removed.
+    \subsection{Structure of the API}
+    \subsubsection{New transaction reporting}
+    A post request route that allows you to send a candidate choice and a voter-hash, validates the
+    requirement, and adds the cast vote into the list of unconfirmed transactions.
+    \subsubsection{Chain retrieval}
+    A get request route that returns the entire blockchain.
+    \subsubsection{Mining}
+    A get request route that mines the block, negotiates consensus and announces blocks to the entire network.
+    \subsubsection{Registration of new nodes}
+    A post request route to register new nodes to the network and add it to a peer list. This internally calls other functions to create chain from data dumps and register with other nodes.
+    \subsubsection{Addition of new blocks}
+    A post request route to add blocks mined by other entities to the chain. The data is first verified and then added.
+    \subsubsection{Pending transaction retrieval}
+    A get request route to retrieve all unmined votes.
+
+    \section{Conclusions and further research scope}
+    The zero-knowledge structure of the blockchain and the efficacy of the Nakamoto consensus algorithm will ensure anonymous and decentralized elections. However, it is crucial that all stakeholders recognize that the concept of such a fair and decentralized election is subject to a fair registration process by a recognized central agency earlier in the electoral life-cycle. Though there exist various methodologies to decentralize the registration process to ensure end-to-end distribution of control, it is the view of the author that these ideas will not be implementable in countries with massive populations and low technological advancement and accessibility. There is scope for further research regarding implementing an end-to-end decentralized electoral process in developing nations.
+
 \end{document}
